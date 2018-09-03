@@ -9,4 +9,4 @@ const mapDispatchToProps = {
 export default connect(
   null,
   mapDispatchToProps
-)(Notes);
+)(Notes);                                                 
