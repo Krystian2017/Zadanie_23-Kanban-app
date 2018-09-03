@@ -50,7 +50,6 @@ import notes from './routes/note.routes';
 import dummyData from './dummyData';
 import serverConfig from './config';
 
-
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
 

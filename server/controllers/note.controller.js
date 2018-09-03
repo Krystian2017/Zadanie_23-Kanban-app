@@ -38,7 +38,7 @@ export function deleteNote(req, res) {
     Lane.findOne({ id: req.body.laneId }, (err, lane) => {
       if (err) {
         res.status(500).send(err);
-      } 
+      }
 
       lane.notes = lane.notes.filter(item => item.id !== note.id);
 
@@ -50,6 +50,7 @@ export function deleteNote(req, res) {
     });
   });
 }
+
 
 export function editNote(req, res) {
   Note.findOne({ id: req.params.noteId }).exec((err, note) => {
