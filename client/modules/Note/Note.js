@@ -1,9 +1,11 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+import React, { PropTypes } from 'react';
+import styles from './Note.css';
 
-const noteSchema = new Schema({
-  task: { type: 'String', required: true },
-  id: { type: 'String', required: true, unique: true }
-});
+const Note = props =>
+  <li className={styles.Note}>{props.children}</li>;
 
-export default mongoose.model('Note', noteSchema);
+Note.propTypes = {
+  children: PropTypes.any,
+};
+
+export default Note;
