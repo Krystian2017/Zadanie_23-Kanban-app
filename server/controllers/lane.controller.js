@@ -35,25 +35,31 @@ export function deleteLane(req, res) {
       res.status(500).send(err);
     }
 
-    const notes = lane.notes;
-    const notesIds = notes.map(note => note.id);
-    Note.remove({ id: { $in: notesIds } }).exec(() => {
-      lane.remove(() => {
-        res.status(200).end();
-      });
+    lane.notes.forEach(x => {
+      Note.findOne({id: x.id}).exec((err, note) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+
+        note.remove(() => {
+          res.status(200).end();
+        });
+      })
+    })
+ 
+    lane.remove(() => {
+      res.status(200).end();
     });
   });
 }
 
 export function editLane(req, res) {
-  Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-
-    lane.set({ name: req.body.name });
-    lane.save(() => {
-      res.status(200).end();
-    });
-  });
+  Lane.findOne({id: req.params.laneId})
+    .then((lane) => {
+      lane.name = req.body.name
+      return lane.save()
+    })
+    .then(() => {
+      res.json(200).end()
+    })
 }
